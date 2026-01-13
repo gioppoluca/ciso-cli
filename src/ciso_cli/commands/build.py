@@ -9,25 +9,9 @@ console = Console()
 
 
 @app.command("info")
-def build_info() -> None:
-    """
-    Calls GET /api/build/ as connection/auth test.
-    """
-    settings = get_settings()
-
-    client = CisoApiClient(
-        base_url=str(settings.url),
-        api_token=settings.api_token,
-        timeout=settings.timeout,
-        verify_tls=settings.verify_tls,
-    )
-
-    try:
-        result = client.get("/api/build/")
-        console.print("[green]OK[/green] Connected to CISO Assistant API.")
-        if result is not None:
-            console.print(result)
-        else:
-            console.print("[dim](No response body)[/dim]")
-    finally:
-        client.close()
+def info(ctx: typer.Context):
+    client = ctx.obj["client"]
+    out = client.get("/api/build/")
+    console.print("[green]OK[/green] Connected.")
+    if out is not None:
+        console.print(out)
