@@ -5,22 +5,27 @@ Minimal Typer-based CLI client for CISO Assistant API.
 
 ## Development workflow
 To code the CLI, use the following workflow:
-```
-docker run -v $PWD:/usr/src/app -v /var/run/docker.sock:/var/run/docker.sock -it --rm  python:3.9.10 /bin/bash
+```bash
+docker run -v $PWD:/usr/src/app -it --rm  python:3.11 /bin/bash
 cd /usr/src/app
-pip3 install -r requirements.txt
-python main.py prepare prepare
+ciso build info
 ```
 
-This will allow for a consistent development environment where the code is executed.
+This will allow for a consistent development environment where the code is executed in the container.
+
+
+
+
+# Testing
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -e .
+pip install -e ".[test]"
 
-cp .env.example .env
-# edit .env
+pytest
+```
 
-ciso build info
+## Con coverage:
+
+```bash
+pytest --cov=ciso_cli --cov-report=term-missing
 ```
