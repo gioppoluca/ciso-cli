@@ -72,3 +72,7 @@ class CisoApiClient:
     def delete(self, path: str) -> Any:
         resp = self._client.delete(path)
         return self._handle_response(resp)
+
+    def patch(self, path: str, json: Optional[dict[str, Any]] = None) -> Any:
+        resp = self._client.patch(path, json=json)
+        return self._handle_response(resp)
